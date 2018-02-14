@@ -13,6 +13,17 @@ class Launcher:
     self.y = y
     self.mag = 50
     self.ang = .78539
+  def Alt_Mag(self, mag_alt):
+    self.mag = mag_alt[0]-155
+    self.alt = mag_alt[1]-160
+    if self.mag < 0:
+      self.mag = 10
+    if self.alt < 0:
+      self.alt = 5 
+
+  def Alt(self, alt):
+    self.alt = alt
+
   def changeMagnitude(self,delta):
     if self.mag < 100 and self.mag > 10:
       self.mag = self.mag + delta
@@ -27,6 +38,9 @@ class Launcher:
       self.ang = self.ang -.13962 
     elif self.ang < 0:
       self.ang = self.ang + .13962
+  def fire(self, rock):
+    rock.v_x = abs(self.mag*math.cos(self.ang))
+    rock.v_y = -1*abs(self.mag*math.sin(self.ang))
   def draw(self,surf):
     self.s_point = (self.x,self.y)
     e_x = abs(self.mag*math.cos(self.ang))
